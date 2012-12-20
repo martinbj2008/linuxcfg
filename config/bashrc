@@ -19,17 +19,11 @@ function sgcheckout() {
 }
 
 #6Wind make commands
-alias makek34='use_x86_64-gcc-4.4.6-eglibc-2.15; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-NONE \
-	CONFIG_HA=n CONFIG_PRODUCT=PC-X86_64 CONFIG_KERNEL=linux-2.6-k2.6.34 \ 
-	CONFIG_LIBC=eglibc-2-15-gcc-4.4.6 CONFIG_ROOTFS=initramfs CONFIG_DPDK='
+alias makek34='use_x86_64-gcc-4.4.6-eglibc-2.15; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-NONE CONFIG_HA=n CONFIG_PRODUCT=PC-X86_64 CONFIG_KERNEL=linux-2.6-k2.6.34 CONFIG_LIBC=eglibc-2-15-gcc-4.4.6 CONFIG_ROOTFS=initramfs CONFIG_DPDK='
 
-alias makexlp='use_broadcom_sdk_2_2_4_toolchain; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE \
-	CONFIG_HA=n CONFIG_PRODUCT=XLP CONFIG_KERNEL=linux-2.6-broadcom-sdk-2.2.4 \
-	CONFIG_LIBC=libc-broadcom-2.2.4-n64 CONFIG_ROOTFS=initramfs'
+alias makexlp='use_broadcom_sdk_2_2_4_toolchain; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE CONFIG_HA=n CONFIG_PRODUCT=XLP CONFIG_KERNEL=linux-2.6-broadcom-sdk-2.2.4 CONFIG_LIBC=libc-broadcom-2.2.4-n64 CONFIG_ROOTFS=initramfs'
 
-alias makeoctean2_3='make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE \
-	CONFIG_HA=n CONFIG_PRODUCT=OCTEON2 CONFIG_KERNEL=linux-2.6-octeon-sdk2.3 \
-	CONFIG_LIBC=libc-cv-sdk2.3-n64 CONFIG_ROOTFS=initramfs'
+alias makeoctean2_3='make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE CONFIG_HA=n CONFIG_PRODUCT=OCTEON2 CONFIG_KERNEL=linux-2.6-octeon-sdk2.3 CONFIG_LIBC=libc-cv-sdk2.3-n64 CONFIG_ROOTFS=initramfs'
 
 alias apollo='ssh h_debit@apollo'
 alias artemis='ssh h_debit@artemis'
