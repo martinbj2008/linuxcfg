@@ -1,0 +1,20 @@
+[user]
+	name = Junwei Zhang
+	email = junwei.zhang@6wind.com
+
+[http]
+	proxy = http://10.80.1.2:8080
+
+[commit]
+	template = ~/.gitcommit_template
+[core]
+	excludesfile=~/.gitignore
+[color]
+	ui=auto
+	branch = auto
+	diff = auto
+	status = auto
+	log = auto
+
+[alias]
+	onelinelog=log --oneline --decorate -n 25
