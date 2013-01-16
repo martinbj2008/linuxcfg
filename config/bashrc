@@ -149,3 +149,6 @@ alias junweilucky='ssh lucky'
 #pr list
 alias prlist='ssh lion /home/junwei/script/pr.py'
 alias checkpatch='/home/junwei/git/linux-generic-2.6.34/scripts/checkpatch.pl'
+
+#grep exclude tags.
+alias grep='grep --color --exclude tags'
