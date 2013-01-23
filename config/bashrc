@@ -25,16 +25,18 @@ function checkout_tag {
 
 	[ "X$git_tag" == "X" ] && (echo "Warning: faile get tag from arg[$1]"; return)
 
-	dst_dir="$prefix/aston/h_debit/deliveries/$git_url"
+	dst_dir=$4
+	[ "X$dst_dir" == "X" ] && dst_dir="$prefix/aston/h_debit/deliveries/$git_url"
+
 	mkdir -p $dst_dir
 	if [ -d $dst_dir/$git_tag ] ; then
 		echo "Skip $dst_dir/$git_tag"
 		return
 	else
-		echo "checkout   $git_tag to $dst_dir"
 		git_repo="$prefix/aston/h_debit/scm/git/projects/$git_url.git"
-		git archive --format=tar --prefix=$git_tag/ $git_tag --remote=$git_repo | (cd $dst_dir && tar xvf -)
+		git archive --format=tar --prefix=$git_tag/ $git_tag --remote=$git_repo | tar xf - -C $dst_dir > /dev/null 2>&1
 	fi
+	echo "$3=$dst_dir$git_tag"
 }
 
 function autocheck {
@@ -48,7 +50,7 @@ function autocheck {
 	git archive --format=tar $rbb_tag --remote=$prefix/aston/h_debit/scm/git/projects/framework/components.git components.config | tar xf  - -O | \
   grep -v ^# | grep -v \= | grep -v kernels |grep -v snapgear | grep -v $^ | while read line;
 	do
-		[ "X$line" == "X" ] || checkout_tag $line
+		[ "X$line" == "X" ] || checkout_tag $line $3
 	done
 	echo 
 	date
