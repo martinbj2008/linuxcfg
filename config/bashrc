@@ -175,10 +175,11 @@ function vtestbed() {
 		VBoxManage controlvm HOST2 acpipowerbutton;
 		VBoxManage controlvm HOST1 acpipowerbutton && sleep 5;
 	fi
+	echo "RUNNING VMS ..."
 	VBoxManage list runningvms
 }
+
 alias vhost1='ssh junwei@10.80.2.71 -X'
 alias vhost2='ssh junwei@10.80.2.74 -X'
 alias vleft='ssh junwei@10.80.2.71 -X -t minicom left'
 alias vright='ssh junwei@10.80.2.71 -X -t minicom right'
-
