@@ -10,4 +10,4 @@ cd ~ \
 
 #configure bashrc
 grep junwei.bashrc ~/.bashrc || \
-	echo -e "# User specific aliases and functions \r. $CFG_ROOT/junwei.bashrc" >> ~/.bashrc
+	(echo  "# User specific aliases and functions" && echo "source $CFG_ROOT/bashrc" )>> ~/.bashrc
