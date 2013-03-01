@@ -158,5 +158,27 @@ alias grep='grep --color --exclude tags'
 #amaonz vps
 alias amazon='ssh -i /home/junwei/.ssh/junwei.pem ubuntu@54.235.117.72'
 alias proxy_amazon='ssh -C2qTnN -L 8080:54.235.117.72:80 ubuntu@54.235.117.72 -i /home/junwei/.ssh/junwei.pem'
+
 #ubutntu in VirtualBox
 alias vubuntu='ssh junwei@10.80.2.237 -x'
+
+#Virtualbox testbed
+function vtestbed() {
+	if [ "$1X" == "startX" ] ; then
+		VBoxManage startvm  HOST1 --type headless && sleep 5;
+		VBoxManage startvm  HOST2 --type headless;
+		VBoxManage startvm  VLeft --type headless;
+		VBoxManage startvm  VRight --type headless;
+	elif [ "$1X" == "stopX" ] ; then
+		VBoxManage controlvm VLeft poweroff;
+		VBoxManage controlvm VRight poweroff;
+		VBoxManage controlvm HOST2 acpipowerbutton;
+		VBoxManage controlvm HOST1 acpipowerbutton && sleep 5;
+	fi
+	VBoxManage list runningvms
+}
+alias vhost1='ssh junwei@10.80.2.71 -X'
+alias vhost2='ssh junwei@10.80.2.74 -X'
+alias vleft='ssh junwei@10.80.2.71 -X -t minicom left'
+alias vright='ssh junwei@10.80.2.71 -X -t minicom right'
+
