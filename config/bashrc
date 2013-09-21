@@ -155,12 +155,9 @@ alias checkpatch='/home/junwei/git/linux-generic-2.6.34/scripts/checkpatch.pl'
 #grep exclude tags.
 alias grep='grep --color --exclude tags'
 
-#amaonz vps
-alias amazon='ssh -i /home/junwei/.ssh/junwei.pem ubuntu@54.235.117.72'
-alias proxy_amazon='ssh -C2qTnN -L 8080:54.235.117.72:80 ubuntu@54.235.117.72 -i /home/junwei/.ssh/junwei.pem'
-
-#ubutntu in VirtualBox
-alias vubuntu='ssh junwei@10.80.2.237 -x'
+#6WIND_HOME
+alias 6WIND='ssh -1  root@222.128.2.191  -L 4000:10.80.2.243:4000 -L 5999:10.80.2.243:22 -L 5900:10.80.2.243:5900 -X'
+alias junwei6WIND='ssh -X -p 5999 junwei@127.0.0.1'
 
 #Virtualbox testbed
 function vtestbed() {
