@@ -9,6 +9,7 @@
 	template = ~/.gitcommit_template
 [core]
 	excludesfile=~/.gitignore
+	editor=vim
 [color]
 	ui=auto
 	branch = auto
