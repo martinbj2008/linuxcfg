@@ -1,5 +1,10 @@
 CFG_ROOT=`pwd`
 
+#
+git --version || sudo apt-get install git
+
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
 #configure vim git
 cd ~ \
 	&& ln -s $CFG_ROOT/git/gitconfig .gitconfig			\
