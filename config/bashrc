@@ -2,108 +2,47 @@
 
 # User specific aliases and functions
 #junwei tools
-function sgcheckout() {
-	dst_dir=$1
-	if [ "X$dst_dir" == "X" ] ; then
-
-		dst_dir="sg"
-	fi
-	if [ -f components.config ]; then
-		cd ..;
-	elif ! [ -f components/components.config ]; then
-		echo "Error!! NOT find components.config !!!! "
-		return 1;
-	fi
-	echo "Use components/components.config to checkout snapgear ===> $dst_dir"
-	./components/checkout.sh  -d $dst_dir framework/snapgear && cd $dst_dir
-}
-
-#script function to auto-checkout the missing tags
-function checkout_tag {
-	git_url=$1
-	git_tag=$2
-
-	[ "X$git_tag" == "X" ] && (echo "Warning: faile get tag from arg[$1]"; return)
-
-	dst_dir=$4
-	[ "X$dst_dir" == "X" ] && dst_dir="$prefix/aston/h_debit/deliveries/$git_url"
-
-	mkdir -p $dst_dir
-	if [ -d $dst_dir/$git_tag ] ; then
-		echo "Skip $dst_dir/$git_tag"
-		return
-	else
-		git_repo="$prefix/aston/h_debit/scm/git/projects/$git_url.git"
-		git archive --format=tar --prefix=$git_tag/ $git_tag --remote=$git_repo | tar xf - -C $dst_dir > /dev/null 2>&1
-	fi
-	echo "$3=$dst_dir$git_tag"
-}
-
-function autocheck {
-	rbb_tag=$1
-	prefix=$2
-
-	echo "------------- Start ---------------------------"
-	date
-	echo
-	[ "X$rbb_tag" == "X" ] && rbb_tag="HEAD"
-	git archive --format=tar $rbb_tag --remote=$prefix/aston/h_debit/scm/git/projects/framework/components.git components.config | tar xf  - -O | \
-  grep -v ^# | grep -v \= | grep -v kernels |grep -v snapgear | grep -v $^ | while read line;
-	do
-		[ "X$line" == "X" ] || checkout_tag $line $3
-	done
-	echo 
-	date
-	echo 
-	echo "Auto checkout finish"
-	echo "----------------------------------------"
-}
 
 #6Wind make commands
-alias makek34='use_x86_64-gcc-4.4.6-eglibc-2.15; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-NONE CONFIG_HA=n CONFIG_PRODUCT=PC-X86_64 CONFIG_KERNEL=linux-2.6-k2.6.34 CONFIG_LIBC=eglibc-2-15-gcc-4.4.6 CONFIG_ROOTFS=initramfs CONFIG_DPDK='
-
-alias makexlp='use_broadcom_sdk_2_2_4_toolchain; make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE CONFIG_HA=n CONFIG_PRODUCT=XLP CONFIG_KERNEL=linux-2.6-broadcom-sdk-2.2.4 CONFIG_LIBC=libc-broadcom-2.2.4-n64 CONFIG_ROOTFS=initramfs'
-
-alias makeoctean2_3='make autoconfig CONFIG_FP_IMPLEMENTATION=FP-MCEE CONFIG_HA=n CONFIG_PRODUCT=OCTEON2 CONFIG_KERNEL=linux-2.6-octeon-sdk2.3 CONFIG_LIBC=libc-cv-sdk2.3-n64 CONFIG_ROOTFS=initramfs'
-
-alias apollo='ssh -X h_debit@apollo'
-alias artemis='ssh -X h_debit@artemis'
-alias pandora='ssh -X h_debit@pandora'
-alias shanghai='ssh -X h_debit@shanghai'
-alias tianjin='ssh -X h_debit@tianjin'
-alias avatar='ssh avatar'
-alias wukong='ssh -X h_debit@wukong'
-alias bajie='ssh -X h_debit@bajie'
-alias caviumhost1='ssh -X h_debit@caviumhost1'
-alias caviumhost2='ssh -X h_debit@caviumhost2'
-alias stand='ssh -X h_debit@stand'
-alias alone='ssh -X h_debit@alone'
-alias lion='ssh -X h_debit@lion'
-alias tiger='ssh -X h_debit@tiger'
-alias tamarillo='ssh -X h_debit@tamarillo'
-alias pepino='ssh -X h_debit@pepino'
-alias puma='ssh -X h_debit@puma'
-alias demonicus='ssh -X h_debit@demonicus'
-alias willow='ssh -X h_debit@willow'
-alias poplar='ssh -X h_debit@poplar'
-alias oak='ssh -X h_debit@oak'
-alias larch='ssh -X h_debit@larch'
-alias cedar='ssh -X h_debit@cedar'
-alias sequoia='ssh -X h_debit@sequoia'
-alias glacon='ssh -X h_debit@glacon'
-alias palm='ssh -X h_debit@palm'
-alias yeti='ssh -X h_debit@yeti'
-alias lucky='ssh -X h_debit@lucky'
-alias cobra3='ssh -X h_debit@cobra3'
-alias cobra='ssh -X h_debit@cobra'
-alias cobra2='ssh -X h_debit@cobra2'
-alias benjamin='ssh -X h_debit@benjamin'
-alias baobab='ssh -X h_debit@baobab'
-alias quake='ssh -X h_debit@quake'
-alias ken='ssh -X h_debit@ken'
-alias agaric='ssh -X h_debit@agaric'
-alias junweiagaric='ssh junwei@agaric'
-
+xuser=`whoami`
+if [ X"$xuser" == "Xjunwei" ] ; then
+alias apollo='ssh -X h_debit@apollo';
+alias artemis='ssh -X h_debit@artemis';
+alias pandora='ssh -X h_debit@pandora';
+alias shanghai='ssh -X h_debit@shanghai';
+alias tianjin='ssh -X h_debit@tianjin';
+alias avatar='ssh avatar';
+alias wukong='ssh -X h_debit@wukong';
+alias bajie='ssh -X h_debit@bajie';
+alias caviumhost1='ssh -X h_debit@caviumhost1';
+alias caviumhost2='ssh -X h_debit@caviumhost2';
+alias stand='ssh -X h_debit@stand';
+alias alone='ssh -X h_debit@alone';
+alias lion='ssh -X h_debit@lion';
+alias tiger='ssh -X h_debit@tiger';
+alias tamarillo='ssh -X h_debit@tamarillo';
+alias pepino='ssh -X h_debit@pepino';
+alias puma='ssh -X h_debit@puma';
+alias demonicus='ssh -X h_debit@demonicus';
+alias willow='ssh -X h_debit@willow';
+alias poplar='ssh -X h_debit@poplar';
+alias oak='ssh -X h_debit@oak';
+alias larch='ssh -X h_debit@larch';
+alias cedar='ssh -X h_debit@cedar';
+alias sequoia='ssh -X h_debit@sequoia';
+alias glacon='ssh -X h_debit@glacon';
+alias palm='ssh -X h_debit@palm';
+alias yeti='ssh -X h_debit@yeti';
+alias lucky='ssh -X h_debit@lucky';
+alias cobra3='ssh -X h_debit@cobra3';
+alias cobra='ssh -X h_debit@cobra';
+alias cobra2='ssh -X h_debit@cobra2';
+alias benjamin='ssh -X h_debit@benjamin';
+alias baobab='ssh -X h_debit@baobab';
+alias quake='ssh -X h_debit@quake';
+alias ken='ssh -X h_debit@ken';
+alias agaric='ssh -X h_debit@agaric';
+alias junweiagaric='ssh junwei@agaric';
 #targets
 alias lasa='ssh -X h_debit@shanghai -t tip lasa'
 alias xian='ssh -X h_debit@shanghai -t tip xian'
@@ -155,28 +94,30 @@ alias checkpatch='/home/junwei/git/linux-generic-2.6.34/scripts/checkpatch.pl'
 #grep exclude tags.
 alias grep='grep --color --exclude tags'
 
+else
 #6WIND_HOME
 alias 6WIND='ssh -1  root@222.128.2.191  -L 4000:10.80.2.243:4000 -L 5999:10.80.2.243:22 -L 5900:10.80.2.243:5900 -X'
 alias junwei6WIND='ssh -X -p 5999 junwei@127.0.0.1'
+fi;
 
-#Virtualbox testbed
-function vtestbed() {
-	if [ "$1X" == "startX" ] ; then
-		VBoxManage startvm  HOST1 --type headless && sleep 5;
-		VBoxManage startvm  HOST2 --type headless;
-		VBoxManage startvm  VLeft --type headless;
-		VBoxManage startvm  VRight --type headless;
-	elif [ "$1X" == "stopX" ] ; then
-		VBoxManage controlvm VLeft poweroff;
-		VBoxManage controlvm VRight poweroff;
-		VBoxManage controlvm HOST2 acpipowerbutton;
-		VBoxManage controlvm HOST1 acpipowerbutton && sleep 5;
-	fi
-	echo "RUNNING VMS ..."
-	VBoxManage list runningvms
-}
-
-alias vhost1='ssh junwei@10.80.2.71 -X'
-alias vhost2='ssh junwei@10.80.2.74 -X'
-alias vleft='ssh junwei@10.80.2.71 -X -t minicom left'
-alias vright='ssh junwei@10.80.2.71 -X -t minicom right'
+##Virtualbox testbed
+#function vtestbed() {
+#	if [ "$1X" == "startX" ] ; then
+#		VBoxManage startvm  HOST1 --type headless && sleep 5;
+#		VBoxManage startvm  HOST2 --type headless;
+#		VBoxManage startvm  VLeft --type headless;
+#		VBoxManage startvm  VRight --type headless;
+#	elif [ "$1X" == "stopX" ] ; then
+#		VBoxManage controlvm VLeft poweroff;
+#		VBoxManage controlvm VRight poweroff;
+#		VBoxManage controlvm HOST2 acpipowerbutton;
+#		VBoxManage controlvm HOST1 acpipowerbutton && sleep 5;
+#	fi
+#	echo "RUNNING VMS ..."
+#	VBoxManage list runningvms
+#}
+#
+#alias vhost1='ssh junwei@10.80.2.71 -X'
+#alias vhost2='ssh junwei@10.80.2.74 -X'
+#alias vleft='ssh junwei@10.80.2.71 -X -t minicom left'
+#alias vright='ssh junwei@10.80.2.71 -X -t minicom right'
