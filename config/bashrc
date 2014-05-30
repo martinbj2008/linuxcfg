@@ -3,6 +3,10 @@
 # User specific aliases and functions
 #junwei tools
 
+#alibaba commands
+alias lvsproxy='ssh linggao@10.65.251.64'
+
+
 #6Wind make commands
 xuser=`whoami`
 if [ X"$xuser" == "Xjunwei" ] ; then
