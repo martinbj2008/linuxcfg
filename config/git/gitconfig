@@ -1,12 +1,8 @@
 [user]
 	name = Junwei Zhang
-	email = junwei.zhang@6wind.com
+	email = linggao.zjw@alibaba-inc.com 
+	#martinbj2008@gmail.com
 
-[http]
-	proxy = http://10.80.1.2:8080
-
-[commit]
-	template = ~/.gitcommit_template
 [core]
 	excludesfile=~/.gitignore
 	editor=vim
