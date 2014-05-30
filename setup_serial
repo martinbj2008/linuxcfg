@@ -1,0 +1,78 @@
+install virtual machine:
+ sudo virt-install --connect qemu:///system -n vcentos -r 2048 --vcpus=2 --disk path=/home/linggao/work/kvm/test/vcentos.img,size=4  --os-type=linux --accelerate --hvm   --network bridge=br0 -c ~/Downloads/CentOS-6.5-x86_64-LiveCD.iso 
+
+
+
+重定向到串口
+centos上的修改
+
+grub的修改
+============================
+default=0
+timeout=3
+#splashimage=(hd0,0)/grub/splash.xpm.gz
+#hiddenmenu
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+terminal --timeout=0 serial console
+
+title CentOS (2.6.32-431.el6.x86_64)
+	root (hd0,0)
+	kernel /vmlinuz-2.6.32-431.el6.x86_64 ro root=/dev/mapper/vg_centos-lv_root rd_NO_LUKS LANG=en_US.UTF-8 rd_LVM_LV=vg_centos/lv_swap rd_NO_MD SYSFONT=latarcyrheb-sun16 crashkernel=128M rd_LVM_LV=vg_centos/lv_root  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet  console=tty0 console=ttyS0,115200n8
+	initrd /initramfs-2.6.32-431.el6.x86_64.img
+
+
+注：
+1. --unit=0 对应ttyS0
+2. --speed=115200 kvm串口控制的波特率是115200，
+3. --word=8 --parity=no --stop=1 是否可以省略没有测试
+4. --timeout=0 如果不设置为零，会反复提示你“press anykey”，
+5. serial console 这两个的顺序可以互换。 默认的输出到第一个上。
+	如果希望默认输出到屏幕而不是串口，要用serial console
+6. console=tty0 console=ttyS0,115200n8 这里是既输出到屏幕上（tty0），同时也输出到串口上（ttyS0）。
+
+
+ttyS0相关配置的修改
+============================
+方法1：（貌似老版本上的，但在centos6上测试也好用）
+在/etc/inittab里追加这么一行
+S0:12345:respawn:/sbin/agetty ttyS0 115200
+
+方法2：在centos6上测试不好使。原因未知
+
+We will need to create /etc/init/ttyS0.conf configuration file with the following content for a new TTY device:
+# ttyS0 - mingetty
+#
+# This service maintains a mingetty on ttyS0.
+stop on runlevel [S016]
+start on runlevel [2345]
+respawn
+instance /dev/ttyS0
+exec /sbin/mingetty --autologin root --noclear ttyS0
+
+Add ttyS0 device to the list of of tty lines on which root is allowed to login :
+echo "ttyS0" >> /etc/securetty
+
+Start it:
+# initctl start ttyS0
+ttyS0 (/dev/ttyS0) start/running, process 27100
+
+
+登录到串口
+============================
+linggao@X240ZJW:~$ virsh <====== 运行virsh命令
+Welcome to virsh, the virtualization interactive terminal.
+
+Type:  'help' for help with commands
+       'quit' to quit
+
+virsh # console  vcentos <====== 登录虚拟机vcentos上的串口
+Connected to domain vcentos <====== 登录成功
+Escape character is ^]
+
+CentOS release 6.5 (Final)
+Kernel 2.6.32-431.el6.x86_64 on an x86_64
+
+localhost.localdomain login: root <====== 帐号
+Password: <====== 密码
+Last login: Fri May 30 17:53:29 on ttyS0
+[root@localhost ~]# 
