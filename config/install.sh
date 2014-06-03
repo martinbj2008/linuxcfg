@@ -19,3 +19,12 @@ cd -
 #configure bashrc
 grep junwei.bashrc ~/.bashrc || \
 	(echo  "# User specific aliases and functions" && echo "source $CFG_ROOT/bashrc" )>> ~/.bashrc
+
+#configure terminal tab color
+gtkfile="~/.config/gtk-3.0/gtk.css"
+if [ -f $gtkfile ] ; then
+	grep "TerminalWindow .notebook" $gtkfile || cat gtk.css >> $gtkfile;
+else
+	mkdir -p ~/.config/gtk-3.0;
+	cp -v gtk.css  ~/.config/gtk-3.0/.;
+fi
