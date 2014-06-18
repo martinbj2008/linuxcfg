@@ -12,7 +12,7 @@ fi
 #configure vim git
 cd ~;
 ln -s $CFG_ROOT/git/gitconfig .gitconfig;
-ln -s $CFG_ROOT/git/gitcommit_template .gitcommit_template;
+#ln -s $CFG_ROOT/git/gitcommit_template .gitcommit_template;
 ln -s $CFG_ROOT/vimrc .vimrc;
 cd -
 
