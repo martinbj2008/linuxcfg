@@ -29,6 +29,7 @@ title CentOS (2.6.32-431.el6.x86_64)
 5. serial console 这两个的顺序可以互换。 默认的输出到第一个上。
 	如果希望默认输出到屏幕而不是串口，要用serial console
 6. console=tty0 console=ttyS0,115200n8 这里是既输出到屏幕上（tty0），同时也输出到串口上（ttyS0）。
+	注：这里的两个参数不要颠倒，否则在串口上测试不正常，没有显示出login的提示。
 
 
 ttyS0相关配置的修改
